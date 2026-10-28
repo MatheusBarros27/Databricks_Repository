@@ -1,0 +1,150 @@
+{
+  "datasets": [
+    {
+      "name": "50ff6813",
+      "displayName": "Customers_Sales_Summary",
+      "config": {
+        "version": "1.1",
+        "source": "Select \r\n*\r\nfrom\r\nnew_sample.retail_data.customer_sales_gold",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "22bd565a",
+      "displayName": "Customers_orders_va_gold",
+      "config": {
+        "version": "1.1",
+        "source": "Select \r\n*\r\nfrom\r\nnew_sample.retail_data.customers_orders_va_gold",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "0d7de1ba",
+      "displayName": "Customers_orders_ny_gold",
+      "config": {
+        "version": "1.1",
+        "source": "Select \r\n*\r\nfrom\r\nnew_sample.retail_data.customers_orders_ny_gold",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "af782a8c",
+      "displayName": "Main Dashboard",
+      "layout": [
+        {
+          "widget": {
+            "name": "count-large-orders-per-city-va-state",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "22bd565a",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "count(is_large_order)",
+                      "expression": "COUNT(`is_large_order`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`is_large_order` IN (TRUE)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Count of Large Orders per City in VA State",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "city",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(is_large_order)",
+                  "displayName": "Count of Large Orders",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
